@@ -1,0 +1,103 @@
+<project 
+        xmlns="http://maven.apache.org/POM/4.0.0" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <!-- 
+        Oauth2 involves 4-5 handshakes:
+        1a. App generates oauth url (client ID, scope required, redirect url) to Google
+        1b. Google asks for user login. Jump to step 2 if logged on
+        
+        2a. User submits username/ password to Google
+        2b. Goolge asks for user grant permission to allow the app to access the scoped data
+        
+        3a. User grants the permission
+        3b. Google returns authorization code
+        
+        4a. App generates oauth URL (client ID, client secret, authorization code, redirect url)
+        4b. Google returns access token, refresh token, expire duration
+        
+        5a. App uses access token to access the scoped data 
+        5b. Google returns the data 
+
+
+        Remarks:
+        1. To automate the whole flow programmatically, there're 2 main barriers: authorization code and access token
+        2. After app obtains access token, it can be renewed by refresh token, and direct access to the scoped data. There's existing API to do programmatically.
+        3. However, authorization code involves browser and user intervention. There's no direct API available to do so, and not intended to do so. 
+           So we have to simulate the browser behavior. HtmlUnit is one of the choices. But it's highly subject to the DOM in the login page. 
+           If one day Google changes the DOM in the login page, it won't work.
+          
+        Reference:
+        https://sumeet70.wordpress.com/2013/03/04/google-oauth-and-junit/
+        
+        
+        Environment:
+        1.  Windows 7 64 bit (assume OS installed in C:\Windows)
+        2.  Eclipse 4.4
+        3.  JDK 8.0   
+       
+    -->
+        
+    <properties>        
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
+    </properties>
+    
+    
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>google-oauth2</groupId>
+    <artifactId>google-oauth2</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    
+    
+    <build>   
+        <plugins>   
+        
+            <!-- compile -->                  
+            <plugin>                                   
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>1.6</source>     <!--  -->
+                    <target>1.6</target>
+                </configuration>                         
+            </plugin>      
+        </plugins>    
+    </build>     
+        
+
+    <dependencies>
+           
+        <!-- junit -->                
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
+
+        <!-- google api client -->
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>1.20.0</version>            
+        </dependency>
+        
+        
+        <!-- htmlunit --> 
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit</artifactId>
+            <version>2.16</version>
+        </dependency>        
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit-core-js</artifactId>
+            <version>2.16</version>
+        </dependency>
+    </dependencies>             
+</project>
