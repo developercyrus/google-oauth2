@@ -1,9 +1,14 @@
+package example1;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
+
+import example3.GetAccessTokenByGoogleApi;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +16,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class GetAccessTokenByCommandPrompt {
+public class GetAccessTokenByFullFlow {
     public static void main(String[] args) throws IOException {
         /* 
          	reference: 
@@ -25,9 +30,15 @@ public class GetAccessTokenByCommandPrompt {
         String clientId = "";
         String clientSecret = "";
         String redirectUrl = "urn:ietf:wg:oauth:2.0:oob";
-        Collection<String> scope = Arrays.asList("https://www.googleapis.com/auth/tasks");
+        Collection<String> scopes = Arrays.asList("https://www.googleapis.com/auth/tasks");
 
-        String authorizationUrl = new GoogleAuthorizationCodeRequestUrl(clientId, redirectUrl, scope).build();
+        
+        JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();	
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(GetAccessTokenByGoogleApi.class.getResourceAsStream("/client_secrets.json")));		
+		clientId = clientSecrets.getDetails().getClientId();
+		clientSecret = clientSecrets.getDetails().getClientSecret();
+
+        String authorizationUrl = new GoogleAuthorizationCodeRequestUrl(clientId, redirectUrl, scopes).build();
         System.out.println("Go to the following link in your browser:");
         System.out.println(authorizationUrl);
 
