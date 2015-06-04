@@ -38,7 +38,7 @@ public class GetAccessTokenByHtmlUnit {
         String clientId = "";
         String clientSecret = "";
         String redirectUrl = "urn:ietf:wg:oauth:2.0:oob";
-        Collection<String> scopes = Arrays.asList("https://www.googleapis.com/auth/tasks");
+        Collection<String> scopes = Arrays.asList("https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/blogger", "https://www.googleapis.com/auth/tasks");
 
         
         JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();	

@@ -1,15 +1,8 @@
 package example0;
-import com.google.api.client.auth.oauth2.TokenRequest;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
+
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-
-import example2.GetAccessTokenByGoogleOauthClient;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,8 +10,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Collection;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,15 +29,13 @@ public class GetAccessTokenByRawHttp {
           	this can be obtained by running the first time
          */
         String refresh_token = "";
-        //Collection<String> scopes = Arrays.asList("https://www.googleapis.com/auth/tasks");
-        String scopes = "https://www.googleapis.com/auth/tasks";
+        String scopes = "https://spreadsheets.google.com/feeds https://www.googleapis.com/auth/blogger https://www.googleapis.com/auth/tasks";
 
 
         JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();	
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(GetAccessTokenByRawHttp.class.getResourceAsStream("/client_secrets.json")));		
 		clientId = clientSecrets.getDetails().getClientId();
 		clientSecret = clientSecrets.getDetails().getClientSecret();
-
         /*
 			https://accounts.google.com/o/oauth2/auth
 	        	?client_id=

@@ -17,7 +17,7 @@ import java.util.Collection;
 public class GetAccessTokenByGoogleOauthClient {
     private static HttpTransport httpTransport;
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();	
-    private static final Collection<String> scopes = Arrays.asList("https://www.googleapis.com/auth/tasks");
+    private static final Collection<String> scopes = Arrays.asList("https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/blogger", "https://www.googleapis.com/auth/tasks");
 
     private static Credential authorize() throws Exception {
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(GetAccessTokenByGoogleOauthClient.class.getResourceAsStream("/client_secrets.json")));		
