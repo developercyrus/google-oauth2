@@ -1,4 +1,4 @@
-package example2;
+package example3;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
@@ -15,7 +15,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
-import example3.GetAccessTokenByGoogleApi;
+import example2.GetAccessTokenByGoogleOauthClient;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -42,7 +42,7 @@ public class GetAccessTokenByHtmlUnit {
 
         
         JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();	
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(GetAccessTokenByGoogleApi.class.getResourceAsStream("/client_secrets.json")));		
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(GetAccessTokenByGoogleOauthClient.class.getResourceAsStream("/client_secrets.json")));		
 		clientId = clientSecrets.getDetails().getClientId();
 		clientSecret = clientSecrets.getDetails().getClientSecret();
         

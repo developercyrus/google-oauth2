@@ -27,22 +27,35 @@
         3. However, authorization code involves browser and user intervention. There's no direct API available to do so, and not intended to do so. 
            So we have to simulate the browser behavior. HtmlUnit is one of the choices. 
            But it's highly subject to the DOM in the login page. If one day Google changes the DOM in the login page, it won't work.
-        4. example1 
-                i.  generates authorization url
-                ii. open browser manually
-                iii.paste the url
-                iv. logged-in if required, and grant permission
-                v.  past the authorization code
-                vi. generates access token
-        5. example2
-                i.  all automate                
-                reference: https://sumeet70.wordpress.com/2013/03/04/google-oauth-and-junit
-        6. example3                        
-                i.  open browser automatically
-                ii. logged-in if required, and grant permission
-                iii.generates access token                
-                reference: https://github.com/google/google-api-java-client-samples/blob/master/calendar-cmdline-sample/src/main/java/com/google/api/services/samples/calendar/cmdline/CalendarSample.java
-        
+        4. example0 
+                i.      app composes authorization url
+                ii.     user opens browser manually
+                iii.    user pastes the url
+                iv.     user logins if required, and grant permission
+                v.      user pastes the authorization code
+                vi.     app composes token url, and send to Google
+                vii.    app receives access token
+                
+                // this is additional step to get access token by refresh token
+                viii.   app composes token url by refresh token (can obtained from vii), and send to Google
+                ix.     app receives access token 
+                reference: http://blog.kenyang.net/2012/09/google-oauth-20-google-api.html
+        5. example1 
+                i.      app generates authorization url
+                ii.     user opens browser manually
+                iii.    user pastes the url
+                iv.     user logins if required, and grant permission
+                v.      user pastes the authorization code
+                vi.     app generates access token
+        6. example2
+                i.      app opens browser automatically
+                ii.     user logins if required, and grant permission
+                iii.    app generates access token                
+                reference: https://github.com/google/google-api-java-client-samples/blob/master/calendar-cmdline-sample/src/main/java/com/google/api/services/samples/calendar/cmdline/CalendarSample.java        
+        7. example3       
+                i.  all automate by htmlunit               
+                reference: https://sumeet70.wordpress.com/2013/03/04/google-oauth-and-junit                 
+                
         Environment:
         1.  Windows 7 64 bit (assume OS installed in C:\Windows)
         2.  Eclipse 4.4
@@ -91,6 +104,14 @@
         </dependency>
 
 
+        <!-- json, used by example0 -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20141113</version>
+        </dependency>
+        
+
         <!-- google api client, used by example1 -->
         <dependency>
             <groupId>com.google.api-client</groupId>
@@ -98,8 +119,21 @@
             <version>1.20.0</version>            
         </dependency>
         
+
+        <!-- google oauth client, used by example2 --> 
+        <dependency>
+            <groupId>com.google.oauth-client</groupId>
+            <artifactId>google-oauth-client-java6</artifactId>
+            <version>1.20.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.oauth-client</groupId>
+            <artifactId>google-oauth-client-jetty</artifactId>
+            <version>1.20.0</version>
+        </dependency>
         
-        <!-- htmlunit, used by example2 --> 
+        
+         <!-- htmlunit, used by example3 --> 
         <dependency>
             <groupId>net.sourceforge.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
@@ -109,20 +143,6 @@
             <groupId>net.sourceforge.htmlunit</groupId>
             <artifactId>htmlunit-core-js</artifactId>
             <version>2.16</version>
-        </dependency>
-        
-        
-        <!-- google oauth client, used by example3 --> 
-        <dependency>
-            <groupId>com.google.oauth-client</groupId>
-            <artifactId>google-oauth-client-java6</artifactId>
-            <version>1.20.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.oauth-client</groupId>
-            <artifactId>google-oauth-client-jetty</artifactId>
-            <version>1.20.0</version>
         </dependency>
         
 

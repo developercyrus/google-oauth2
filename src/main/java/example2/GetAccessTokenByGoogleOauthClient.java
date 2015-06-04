@@ -1,4 +1,4 @@
-package example3;
+package example2;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -14,13 +14,13 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class GetAccessTokenByGoogleApi {
+public class GetAccessTokenByGoogleOauthClient {
     private static HttpTransport httpTransport;
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();	
     private static final Collection<String> scopes = Arrays.asList("https://www.googleapis.com/auth/tasks");
 
     private static Credential authorize() throws Exception {
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(GetAccessTokenByGoogleApi.class.getResourceAsStream("/client_secrets.json")));		
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(GetAccessTokenByGoogleOauthClient.class.getResourceAsStream("/client_secrets.json")));		
         
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                                                 httpTransport
